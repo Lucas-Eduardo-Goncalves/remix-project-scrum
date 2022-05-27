@@ -1,11 +1,14 @@
-import type { ActionFunction } from "@remix-run/node";
+import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { SignInComponent } from "~/features/SignIn";
+import { handleLoginUser, checkUserLoggedIn } from "~/features/SignIn/api";
+
+export const loader: LoaderFunction = async ({ request }) => {
+  return await checkUserLoggedIn({ request });
+}
 
 export const action: ActionFunction = async ({ request }) => {
-  let formData = await request.formData();
-  let values = Object.fromEntries(formData);
-  return console.log(values);
-}
+  return await handleLoginUser({ request });
+};
 
 export default function Index() {
   return <SignInComponent />

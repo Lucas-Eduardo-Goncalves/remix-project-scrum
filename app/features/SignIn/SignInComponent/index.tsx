@@ -1,48 +1,46 @@
-import { GoogleLogo } from "phosphor-react";
+import { Form } from "@remix-run/react";
+
+import logo from "~/assets/logo.svg";
 import { Button } from "~/components/Button";
+
 import { 
   Container, 
   Apresentation, 
-  Form, 
-  FormAreaDivider, 
-  FormDivider, 
-  SignInWithGoogleButton 
+  Content, 
 } from "./styles";
 
 export function SignInComponent() {
   return (
     <Container>
       <Apresentation>
-        <p>Seja bem vindo ao Projeto Scrum!</p>
-        <p>Faça o login para acessa a plataforma...</p>
+        <div>
+          <img src={logo} alt="Logo" />
+          <h1>Poker Scrum</h1>
+        </div>
       </Apresentation>
 
-      <Form>
-        <input 
-          type="text"
-          name="email"
-          placeholder="E-mail"
-        />
+      <Content 
+        animate={{ x: [100, 0], opacity: [0, 1] }}
+        transition={{ type: "spring", duration: 0.5 }}
+      >
+        <Form method="post">
+          <h3>Crie sua conta</h3>
 
-        <input 
-          type="password" 
-          name="password"
-          placeholder="Senha"
-        />
+          <input 
+            type="text"
+            name="name"
+            placeholder="Nome"
+          />
 
-        <Button type="submit" text="Entrar" />
+          <input 
+            type="password" 
+            name="password"
+            placeholder="Senha"
+          />
 
-        <FormAreaDivider>
-          <FormDivider />
-          ou entre com
-          <FormDivider />
-        </FormAreaDivider>
-
-        <SignInWithGoogleButton type="button">
-          <GoogleLogo size={32} />
-          Google
-        </SignInWithGoogleButton>
-      </Form>
+          <Button type="submit" text="Entrar" />
+        </Form>
+      </Content>
     </Container>
   );
 }

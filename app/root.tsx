@@ -1,3 +1,5 @@
+import type { MetaFunction } from "@remix-run/node";
+
 import {
   Links,
   LiveReload,
@@ -6,16 +8,19 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import type { MetaFunction } from "@remix-run/node";
 
 import { GlobalStyles } from "./styles/GlobalStyles";
+
+interface IDocumentProps {
+  children: React.ReactNode;
+}
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
   viewport: "width=device-width,initial-scale=1",
 });
 
-export default function App() {
+function Document({ children }: IDocumentProps) {
   return (
     <html lang="en">
       <head>
@@ -25,11 +30,19 @@ export default function App() {
       </head>
       <body>
         <GlobalStyles />
-        <Outlet />
+        {children}
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
       </body>
     </html>
+  );
+}
+
+export default function App() {
+  return (
+    <Document>
+      <Outlet />
+    </Document>
   );
 }
